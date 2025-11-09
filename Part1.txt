@@ -1,0 +1,63 @@
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+class Book {
+public:
+    string title;
+    string author;
+    int year;
+    bool borrowed;
+
+    // initialiser un objet book
+    Book(string t, string a, int y) {
+        title = t;
+        author = a;
+        year = y;
+        borrowed = false;
+    }
+
+    // defnir la fonction d'affichage des informations
+    void display() {
+        cout << "Title: " << title << "\nAuthor: " << author 
+             << "\nYear: " << year 
+             << "\nBorrowed: " << (borrowed ? "Yes" : "No") << endl;
+    }
+
+    // defnir la fonction du prêt
+    void borrowBook() {
+        if (!borrowed) {
+            borrowed = true;
+            cout << "Book borrowed successfully.\n";
+        } else {
+            cout << "Book is already borrowed.\n";
+        }
+    }
+
+    // defnir la fonction du retour
+    void returnBook() {
+        if (borrowed) {
+            borrowed = false;
+            cout << "Book returned successfully.\n";
+        } else {
+            cout << "Book was not borrowed.\n";
+        }
+    }
+    
+     // defnir la fonction de la sauvegarde vers fichier text
+    void saveToFile() {
+        ofstream file("book.txt");
+        file << title << "\n" << author << "\n" << year << "\n" << borrowed;
+        file.close();
+        cout << "Book saved to book.txt\n";
+    }
+};
+
+int main() {
+    Book myBook("La Ligne verte", "Stephen King", 1997); //Envoyer les arguments au constructeur.
+    myBook.display(); //afficher les informations.
+    myBook.borrowBook();//emprunter le livre
+    myBook.returnBook();//rendre le livre
+    myBook.saveToFile();// sauvegarder en fichier texte.
+    return 0;
+}
